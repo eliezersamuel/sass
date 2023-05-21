@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: ${MONGO_VERSION}
+    restart: always
+    container_name: mongodb
+    networks:
+      - mynetwork
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    ports:
+      - 27017:27017
+    volumes:
+      - .mongo/mongodb_data:/data/db
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  mongodb_data:
